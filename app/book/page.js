@@ -5,7 +5,20 @@ import { useState } from "react";
 
 export default function Book() {
   const params = useSearchParams();
-  const day = params.get("day");
+
+  const date = params.get("date");
+  const time = params.get("time");
+
+  // voorkomt crash
+  if (!date || !time) {
+    return <div style={{ padding: 20 }}>Geen geldige afspraak gekozen</div>;
+  }
+
+  const formattedDate = new Date(date).toLocaleDateString("nl-BE", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
 
   const [form, setForm] = useState({
     name: "",
@@ -21,12 +34,14 @@ export default function Book() {
       return;
     }
 
-    alert(`Afspraak geboekt op dag ${day}`);
+    alert(`Afspraak geboekt op ${formattedDate} om ${time}`);
   };
 
   return (
     <div style={{ padding: 20 }}>
-      <h1>Afspraak voor dag {day}</h1>
+      <h1>
+        Afspraak op {formattedDate} om {time}
+      </h1>
 
       <form onSubmit={handleSubmit}>
         <input
