@@ -1,4 +1,4 @@
-"import { Suspense } from "react";
+import { Suspense } from "react";
 import BookClient from "./BookClient";
 
 export default function Page() {
